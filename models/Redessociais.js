@@ -8,27 +8,32 @@ const Redessociais = db.sequelize.define('redessociais', {
         primaryKey: true
     },
     whatsapp: {
-        type: db.Sequelize.STRING
+        type: db.Sequelize.STRING,
+        allowNull: true
     },
     discord: {
-        type: db.Sequelize.STRING
+        type: db.Sequelize.STRING,
+        allowNull: true
     },
     instagram: {
-        type: db.Sequelize.DOUBLE
+        type: db.Sequelize.STRING,
+        allowNull: true
     },
     twitter: {
-        type: db.Sequelize.STRING
+        type: db.Sequelize.STRING,
+        allowNull: true
     },
     UsuarioId: {
         type: db.Sequelize.INTEGER(2),
         }
 })
 
-Redessociais.belongsTo(Usuarios, {
-    foreignKey: 'UsuarioId',
-    allowNull: true
-});
+Redessociais.associate = (models) => {
+    Redessociais.belongsTo(models.Usuarios,
+        { foreignKey: 'UsuarioId', as: 'usuarios' });
+};
 
-//Redessociais.sync({force: true})
+
+Redessociais.sync({force: true})
 
 module.exports = Redessociais

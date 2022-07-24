@@ -3,9 +3,10 @@ const express = require("express");
 const app = express();
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
-const usuarios = require("./models/Usuarios")
-const redessociais = require("./models/RedesSociais")
-const Sequelize = 
+const usuarios = require("./models/Usuarios");
+const redessociais = require("./models/RedesSociais");
+const Sequelize = require("sequelize");
+const interesses = require("./models/Interesses");
 
 app.engine('handlebars', handlebars.engine({defaultLayout: ''}))
 app.set('view engine', 'handlebars')
@@ -25,10 +26,6 @@ app.get("/form", function(req,res){
     res.render("formulario")
 
 });
-
-
-//Página Inicial (bonitinha com campo de login e redirecionamento para parte de cadastro)
-
 
 //REDIRECT DA TELA INICIAL
 
@@ -61,9 +58,10 @@ app.get("/form", function(req,res){
              whatsapp:req.body.whatsapp,
              discord: req.body.discord,
              instagram: req.body.instagram,
-             twitter: req.body.twitter
+             twitter: req.body.twitter,
+             UsuarioId: req.body.UsuarioId
          }).then(function(){
-             res.send('Redes sociais cadastradas com sucesso!')
+             res.redirect('/interesses')
          }).catch(function(erro){
              res.send('Erro' + erro)
          }) 
@@ -72,11 +70,24 @@ app.get("/form", function(req,res){
 
     //Cadastro de interesses
     app.get("/interesses", function(req,res){
-    
-        res.sendFile(__dirname + "/cadastro/socials.html")
-
+        res.render("interesses")
     });
-
+    app.post('/add-interesses', function(req, res){
+        interesses.create({
+             musicas:req.body.musicas,
+             jogos: req.body.jogos,
+             filmes: req.body.filmes,
+             livros: req.body.livros,
+             esportes: req.body.esportes,
+             educação: req.body.educação,
+             UsuarioId: req.body.UsuarioId
+         }).then(function(){
+             res.send('Cadastro realizado com sucesso!')
+         }).catch(function(erro){
+             res.send('Erro' + erro)
+         }) 
+     })
+    
     //Esqueci minha senha
     app.get("/recuperar_senha", function(req,res){
         res.sendFile(__dirname + "/recuperar_senha.html")
