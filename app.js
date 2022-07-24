@@ -3,10 +3,10 @@ const express = require("express");
 const app = express();
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
-const usuarios = require("./models/Usuarios");
-const redessociais = require("./models/RedesSociais");
+const redessociais = require("./models/Usuarios");
 const Sequelize = require("sequelize");
-const interesses = require("./models/Interesses");
+const interesses = require("./models/Usuarios");
+const usuarios = require("./models/Usuarios");
 
 app.engine('handlebars', handlebars.engine({defaultLayout: ''}))
 app.set('view engine', 'handlebars')
@@ -36,58 +36,31 @@ app.get("/form", function(req,res){
     
     app.post('/add-usuarios', function(req, res){
        usuarios.create({
+            id: req.body.id,
             nome:req.body.nome,
             email: req.body.email,
             matricula: req.body.matricula,
             curso: req.body.curso,
-            senha: req.body.senha
+            senha: req.body.senha})
+        redessociais.create({
+            whatsapp:req.body.whatsapp,
+            discord: req.body.discord,
+            instagram: req.body.instagram,
+            twitter: req.body.twitter})
+        interesses.create({
+            musicas:req.body.musicas,
+            jogos: req.body.jogos,
+            filmes: req.body.filmes,
+            livros: req.body.livros,
+            esportes: req.body.esportes,
+            educação: req.body.educação
         }).then(function(){
-            res.redirect('/redessociais')
+            res.send("Cadastro realizado com sucesso.")
         }).catch(function(erro){
             res.send('Erro' + erro)
         }) 
     })
 
-    //Cadastro de redes sociais
-    app.get('/redessociais', function(req, res){
-        res.render('redessociais')
-    })
-
-    app.post('/add-redessociais', function(req, res){
-        redessociais.create({
-             whatsapp:req.body.whatsapp,
-             discord: req.body.discord,
-             instagram: req.body.instagram,
-             twitter: req.body.twitter,
-             UsuarioId: req.body.UsuarioId
-         }).then(function(){
-             res.redirect('/interesses')
-         }).catch(function(erro){
-             res.send('Erro' + erro)
-         }) 
-     })
-    
-
-    //Cadastro de interesses
-    app.get("/interesses", function(req,res){
-        res.render("interesses")
-    });
-    app.post('/add-interesses', function(req, res){
-        interesses.create({
-             musicas:req.body.musicas,
-             jogos: req.body.jogos,
-             filmes: req.body.filmes,
-             livros: req.body.livros,
-             esportes: req.body.esportes,
-             educação: req.body.educação,
-             UsuarioId: req.body.UsuarioId
-         }).then(function(){
-             res.send('Cadastro realizado com sucesso!')
-         }).catch(function(erro){
-             res.send('Erro' + erro)
-         }) 
-     })
-    
     //Esqueci minha senha
     app.get("/recuperar_senha", function(req,res){
         res.sendFile(__dirname + "/recuperar_senha.html")
@@ -95,8 +68,7 @@ app.get("/form", function(req,res){
 
 //Perfil próprio
 app.get("/perfil", function(req,res){
-
-    res.sendFile(__dirname + "/perfil/perfil.html")
+    res.render("perfil")
 
 });
 
