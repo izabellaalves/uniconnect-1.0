@@ -3,10 +3,10 @@ const express = require("express");
 const app = express();
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
-const redessociais = require("./models/Usuarios");
+const Redessociais = require("./models/Usuarios");
 const Sequelize = require("sequelize");
-const interesses = require("./models/Usuarios");
-const usuarios = require("./models/Usuarios");
+const Interesses = require("./models/Usuarios");
+const Usuarios = require("./models/Usuarios");
 
 app.engine('handlebars', handlebars.engine({defaultLayout: ''}))
 app.set('view engine', 'handlebars')
@@ -35,19 +35,19 @@ app.get("/form", function(req,res){
     });
     
     app.post('/add-usuarios', function(req, res){
-       usuarios.create({
+       Usuarios.create({
             id: req.body.id,
             nome:req.body.nome,
             email: req.body.email,
             matricula: req.body.matricula,
             curso: req.body.curso,
             senha: req.body.senha})
-        redessociais.create({
+        Redessociais.create({
             whatsapp:req.body.whatsapp,
             discord: req.body.discord,
             instagram: req.body.instagram,
             twitter: req.body.twitter})
-        interesses.create({
+        Interesses.create({
             musicas:req.body.musicas,
             jogos: req.body.jogos,
             filmes: req.body.filmes,
@@ -106,5 +106,3 @@ app.get("/", function(req,res){
 // server 
 
 app.listen(8081);
-
-

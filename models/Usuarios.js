@@ -74,10 +74,14 @@ const Usuarios = db.sequelize.define('usuarios', {
     },
     {freezeTableName: true})
 
-Interesses.sync({force: true})
-Redessociais.sync({force: true})
-Usuarios.sync({force: true})
+Usuarios.hasOne(Interesses);
+Interesses.belongsTo(Usuarios);
 
-module.exports = Usuarios
-module.exports = Redessociais
-module.exports = Interesses
+Usuarios.hasOne(Redessociais);
+Redessociais.belongsTo(Usuarios);
+
+//Interesses.sync({force: true})
+//Redessociais.sync({force: true})
+//Usuarios.sync({force: true})
+
+module.exports = Usuarios, Redessociais, Interesses
