@@ -7,5 +7,5 @@ const sequelize = new Sequelize('uniconnect', 'izabella', 'izabella', {
 
 module.exports= {
     Sequelize: Sequelize,
-    sequelize: sequelize
+    sequelize: sequelize,
 }

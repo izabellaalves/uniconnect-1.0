@@ -1,54 +1,6 @@
 const db = require('./db')
-
-const Interesses = db.sequelize.define('interesses', {
-    id: {
-        type: db.Sequelize.INTEGER(2),
-        autoIncrement: true,
-        primaryKey: true
-    },
-    musicas: {
-        type: db.Sequelize.STRING
-    },
-    jogos: {
-        type: db.Sequelize.STRING
-    },
-    filmes: {
-        type: db.Sequelize.STRING
-    },
-    livros: {
-        type: db.Sequelize.STRING
-    },
-    esportes: {
-        type: db.Sequelize.STRING
-    },
-    educação: {
-        type: db.Sequelize.STRING}
-    },
-    {freezeTableName: true})
-
-const Redessociais = db.sequelize.define('redessociais', {
-    id: {
-        type: db.Sequelize.INTEGER(2),
-        autoIncrement: true,
-        primaryKey: true
-    },
-    whatsapp: {
-        type: db.Sequelize.STRING,
-        allowNull: true
-    },
-    discord: {
-        type: db.Sequelize.STRING,
-        allowNull: true
-    },
-    instagram: {
-        type: db.Sequelize.STRING,
-        allowNull: true
-    },
-    twitter: {
-        type: db.Sequelize.STRING,
-        allowNull: true}
-    },
-    {freezeTableName: true})
+const Interesses = require('./Interesses')
+const Redessociais = require('./Redessociais')
 
 const Usuarios = db.sequelize.define('usuarios', {
     id: {
@@ -74,14 +26,6 @@ const Usuarios = db.sequelize.define('usuarios', {
     },
     {freezeTableName: true})
 
-Usuarios.hasOne(Interesses);
-Interesses.belongsTo(Usuarios);
-
-Usuarios.hasOne(Redessociais);
-Redessociais.belongsTo(Usuarios);
-
-//Interesses.sync({force: true})
-//Redessociais.sync({force: true})
 //Usuarios.sync({force: true})
 
-module.exports = Usuarios, Redessociais, Interesses
+module.exports = Usuarios
