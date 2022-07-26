@@ -47,31 +47,57 @@ app.use(bodyParser.json())
     });
     
     app.post('/add-usuarios', function(req, res){
-       Usuarios.create({
-            id: req.body.id,
-            nome:req.body.nome,
-            email: req.body.email,
-            matricula: req.body.matricula,
-            curso: req.body.curso,
-            senha: req.body.senha});
-        Redessociais.create({
-            whatsapp:req.body.whatsapp,
-            discord: req.body.discord,
-            instagram: req.body.instagram,
-            twitter: req.body.twitter});
-        Interesses.create({
-            musicas:req.body.musicas,
-            jogos: req.body.jogos,
-            filmes: req.body.filmes,
-            livros: req.body.livros,
-            esportes: req.body.esportes,
-            educação: req.body.educação
-        }).then(function(){
-            res.send("Cadastro realizado com sucesso.")
-        }).catch(function(erro){
-            res.send('Erro ' + erro)
-        }); 
+        usuarios.create({
+             nome:req.body.nome,
+             email: req.body.email,
+             matricula: req.body.matricula,
+             curso: req.body.curso,
+             senha: req.body.senha
+         }).then(function(){
+             res.redirect('/redessociais')
+         }).catch(function(erro){
+             res.send('Erro' + erro)
+         }) 
+     })
+
+//Cadastro de redes sociais
+    app.get('/redessociais', function(req, res){
+        res.render('redessociais')
     })
+
+     app.post('/add-redessociais', function(req, res){
+        redessociais.create({
+             whatsapp:req.body.whatsapp,
+             discord: req.body.discord,
+             instagram: req.body.instagram,
+             twitter: req.body.twitter,
+         }).then(function(){
+             res.redirect('/interesses')
+         }).catch(function(erro){
+             res.send('Erro' + erro)
+         }) 
+        })
+
+//Cadastro de interesses
+        app.get("/interesses", function(req,res){
+            res.render("interesses")
+        });
+
+        app.post('/add-interesses', function(req, res){
+            interesses.create({
+                 musicas:req.body.musicas,
+                 jogos: req.body.jogos,
+                 filmes: req.body.filmes,
+                 livros: req.body.livros,
+                 esportes: req.body.esportes,
+                 educação: req.body.educação,
+                 UsuarioId: req.body.UsuarioId
+             }).then(function(){
+                 res.send('Cadastro realizado com sucesso!')
+             }).catch(function(erro){
+                 res.send('Erro' + erro)
+             }) 
+         })
 
     //Perfil próprio
     app.get("/perfil", function(req,res){
