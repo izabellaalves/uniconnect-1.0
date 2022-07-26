@@ -27,6 +27,7 @@ const Interesses = db.sequelize.define('interesses', {
     }
 })
 
+
 //Interesses.sync({force: true})
 
 module.exports = Interesses 

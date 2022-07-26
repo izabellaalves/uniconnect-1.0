@@ -25,6 +25,7 @@ const Redessociais = db.sequelize.define('redessociais', {
     }
 })
 
+
 //Redessociais.sync({force: true})
 
 module.exports = Redessociais 

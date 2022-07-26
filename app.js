@@ -88,7 +88,7 @@ app.get("/form", function(req,res){
              }) 
          })
 
-    //Esqueci minha senha
+//Esqueci minha senha
     app.get("/recuperar_senha", function(req,res){
         res.sendFile(__dirname + "/recuperar_senha.html")
     });

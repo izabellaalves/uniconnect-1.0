@@ -26,6 +26,7 @@ const Usuarios = db.sequelize.define('usuarios', {
     },
     {freezeTableName: true})
 
+    
 //Usuarios.sync({force: true})
 
 module.exports = Usuarios
