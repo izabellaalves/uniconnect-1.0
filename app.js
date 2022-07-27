@@ -7,80 +7,62 @@ const usuarios = require("./models/Usuarios");
 const redessociais = require("./models/RedesSociais");
 const Sequelize = require("sequelize");
 const interesses = require("./models/Interesses");
+const path = require("path");
+const PORT = process.env.PORT || 8081;
 
-app.engine('handlebars', handlebars.engine({defaultLayout: ''}))
+app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-//rotas
- //Teste de template
- app.get("/template", function(req,res){
+//ROTAS
+
+    //Páginas estáticas e dir public
+    app.use(express.static(path.join(__dirname, "public")));
+
+    //Teste de template
+    app.get("/template", function(req,res){
         
-    res.render("layouts/main");
+        res.render("layouts/main", {
+            title: "Template",
+            style: "styles.css"
+        });
 
-});
+    });
 
-app.get("/form", function(req,res){
+    app.get("/form", function(req,res){
     
-    res.render("formulario")
+        res.render("formulario");
 
-});
+    });
 
-//REDIRECT DA TELA INICIAL
+    //REDIRECT DA TELA INICIAL
 
 //Cadastro de informações básicas
     app.get('/cadastrodeusuarios', function(req, res){
-        res.render('cadastrodeusuarios');
+        res.render('cadastrodeusuarios', {
+            title: "Cadastrar usuário",
+            style: "styles.css"
+        });
     });
     
     app.post('/add-usuarios', function(req, res){
         usuarios.create({
-             nome:req.body.nome,
-             email: req.body.email,
-             matricula: req.body.matricula,
-             curso: req.body.curso,
-             senha: req.body.senha
-         }).then(function(){
-             res.redirect('/redessociais')
-         }).catch(function(erro){
-             res.send('Erro' + erro)
-         }) 
-     })
-
-//Cadastro de redes sociais
-    app.get('/redessociais', function(req, res){
-        res.render('redessociais')
-    })
-
-     app.post('/add-redessociais', function(req, res){
-        redessociais.create({
-             whatsapp:req.body.whatsapp,
-             discord: req.body.discord,
-             instagram: req.body.instagram,
-             twitter: req.body.twitter,
-         }).then(function(){
-             res.redirect('/interesses')
-         }).catch(function(erro){
-             res.send('Erro' + erro)
-         }) 
-        })
-
-
-//Cadastro de interesses
-        app.get("/interesses", function(req,res){
-            res.render("interesses")
-        });
-
-        app.post('/add-interesses', function(req, res){
-            interesses.create({
-                 musicas:req.body.musicas,
-                 jogos: req.body.jogos,
-                 filmes: req.body.filmes,
-                 livros: req.body.livros,
-                 esportes: req.body.esportes,
-                 educação: req.body.educação,
-                 UsuarioId: req.body.UsuarioId
+            nome:req.body.nome,
+            email: req.body.email,
+            matricula: req.body.matricula,
+            curso: req.body.curso,
+            senha: req.body.senha,
+            whatsapp:req.body.whatsapp,
+            discord: req.body.discord,
+            instagram: req.body.instagram,
+            twitter: req.body.twitter,
+            musicas:req.body.musicas,
+            jogos: req.body.jogos,
+            filmes: req.body.filmes,
+            livros: req.body.livros,
+            esportes: req.body.esportes,
+            educação: req.body.educação
              }).then(function(){
                  res.send('Cadastro realizado com sucesso!')
              }).catch(function(erro){
@@ -93,31 +75,32 @@ app.get("/form", function(req,res){
         res.sendFile(__dirname + "/recuperar_senha.html")
     });
 
-//Perfil próprio
-app.get("/perfil", function(req,res){
-    res.render("perfil")
-
-});
-
 //EDITAR PERFIL
 
     //Informações básicas
-    app.get("/perfil/edit/i", function(req,res){
+    app.get("/perfil/edit/e", function(req,res){
 
-        res.sendFile(__dirname + "/perfil/info.html")
+        res.sendFile(__dirname + "/perfil/eu.html");
+
+    });
+
+    //Redes Sociais
+    app.get("/perfil/edit/s", function(req,res){
+
+        res.sendFile(__dirname + "/perfil/sociais.html");
 
     });
 
     //Interesses
-    app.get("/perfil/edit/s", function(req,res){
+    app.get("/perfil/edit/i", function(req,res){
 
-        res.sendFile(__dirname + "/perfil/socials.html")
+        res.sendFile(__dirname + "/perfil/interesses.html");
 
     });
 
     //Troca senha
     app.get("/perfil/edit/p", function(req,res){
-        res.sendFile(__dirname + "/perfil/senha.html")
+        res.sendFile(__dirname + "/perfil/senha.html");
     })
 
 //FAZER
@@ -127,9 +110,14 @@ app.get("/perfil", function(req,res){
 
 
 app.get("/", function(req,res){
-    res.render('index')
+    res.render('index', {
+        title:"Uniconnect",
+        style:"styles.css"
+    });
 });
 
 // server 
 
-app.listen(8081);
+app.listen(PORT, function(){
+    console.log("Servidor rodando na porta " + PORT);
+});

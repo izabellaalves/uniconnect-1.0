@@ -1,13 +1,6 @@
 const db = require('./db')
-const Interesses = require('./Interesses')
-const Redessociais = require('./Redessociais')
 
 const Usuarios = db.sequelize.define('usuarios', {
-    id: {
-        type: db.Sequelize.INTEGER(2),
-        autoIncrement: true,
-        primaryKey: true
-    },
     nome: {
         type: db.Sequelize.STRING
     },
@@ -15,7 +8,8 @@ const Usuarios = db.sequelize.define('usuarios', {
         type: db.Sequelize.STRING
     },
     matricula: {
-        type: db.Sequelize.DOUBLE
+        type: db.Sequelize.DOUBLE,
+        primaryKey: true
     },
     curso: {
         type: db.Sequelize.STRING
@@ -23,10 +17,42 @@ const Usuarios = db.sequelize.define('usuarios', {
     senha: {
         type: db.Sequelize.DOUBLE,
     },
+    musicas: {
+        type: db.Sequelize.STRING
     },
-    {freezeTableName: true})
-
+    jogos: {
+        type: db.Sequelize.STRING
+    },
+    filmes: {
+        type: db.Sequelize.STRING
+    },
+    livros: {
+        type: db.Sequelize.STRING
+    },
+    esportes: {
+        type: db.Sequelize.STRING
+    },
+    educação: {
+        type: db.Sequelize.STRING
+    },
+    whatsapp: {
+        type: db.Sequelize.STRING,
+        allowNull: true
+    },
+    discord: {
+        type: db.Sequelize.STRING,
+        allowNull: true
+    },
+    instagram: {
+        type: db.Sequelize.STRING,
+        allowNull: true
+    },
+    twitter: {
+        type: db.Sequelize.STRING,
+        allowNull: true
+    }
+})
     
-//Usuarios.sync({force: true})
+Usuarios.sync({force: true})
 
 module.exports = Usuarios
