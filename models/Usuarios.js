@@ -15,7 +15,7 @@ const Usuarios = db.sequelize.define('usuarios', {
         type: db.Sequelize.STRING
     },
     senha: {
-        type: db.Sequelize.DOUBLE,
+        type: db.Sequelize.STRING,
     },
     musicas: {
         type: db.Sequelize.STRING
@@ -53,6 +53,6 @@ const Usuarios = db.sequelize.define('usuarios', {
     }
 })
     
-Usuarios.sync({force: true})
+//Usuarios.sync({force: true})
 
 module.exports = Usuarios
