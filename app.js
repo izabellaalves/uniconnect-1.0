@@ -125,42 +125,48 @@ app.get("/login", function(req, res){
     });
 });
 
-app.post("/validar-login", async(req, res, next) =>{
+app.post("/validar-login", async(req, res) =>{
     const user= await Usuarios.findOne({where: {matricula: req.body.matricula}});
     if (user){
         const password_valid = await bcrypt.compare(req.body.senha, user.senha);
     if(password_valid){
-        const token = jwt.sign({ 
-            "matricula" : user.matricula,
-            "email" : user.email,
-            "nome":user.nome },process.env.JWT_KEY);
-        res.redirect('/perfil')
-    } else {
-      res.status(400).json({ error : "Password Incorrect" });
-    }
+        const token = jwt.sign({matricula: user.matricula}, process.env.JWT_KEY, {expiresIn: 5000});
+        return res.status(200).send({
+            message: 'Autenticado com sucesso',
+            token: token 
+        })
   }else{
-    res.status(404).json({ error : "User does not exist" });
-  }
+    res.status(401).end();
+  }}
   })
 
+  function verifyJWT(req, res, next){
+    console.log(req.headers)
+    var token = req.body.token || req.query.token || req.headers[' x-access-token'];
+    console.log('1')
+    if (token) {
+        console.log('2')
+      jwt.verify(token, process.env.JWT_KEY, function(err, decoded) {      
+        if (err) { 
+          return res.json({ success: false, message: 'Failed to authenticate token.' });    
+        } else {
+          req.decoded = decoded;    
+          next();
+        }
+      });
+  
+    } else {
+      return res.status(403).send({ 
+          success: false, 
+          message: 'No token provided.' 
+      });
+    }}  
+
 //PERFIL
-  app.get("/perfil" , async(req,res,next)=>{
-    try {
-      let token = req.headers['authorization'].split(" ")[1];
-      let decoded = jwt.verify(token,process.env.JWT_KEY);
-      req.user = decoded;
-      next();
-    } catch(err){
-      res.render('perfil');
-    }
-    },
-    async(req,res,next)=>{
-      let user = await Usuarios.findOne({where:{id : req.user.id},attributes:{exclude:["password"]}});
-      if(user === null){
-        res.status(404).json({'msg':"User not found"});
-      }
-      res.status(200).json(user);
-   }); 
+app.get("/perfil" , verifyJWT, (req,res)=>{
+    console.log(req.Usuariosmatricula + 'fez essa chamada');
+    res.render('perfil')
+})
 
 //TELA INICIAL
 app.get("/", function(req,res){
