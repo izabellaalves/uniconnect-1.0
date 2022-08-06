@@ -147,7 +147,7 @@ app.post("/validar-login", async(req, res, next) =>{
   app.get("/perfil" , async(req,res,next)=>{
     try {
       let token = req.headers['authorization'].split(" ")[1];
-      let decoded = jwt.verify(token,process.env.SECRET);
+      let decoded = jwt.verify(token,process.env.JWT_KEY);
       req.user = decoded;
       next();
     } catch(err){
