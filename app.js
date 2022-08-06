@@ -158,13 +158,18 @@ app.get('/logout',(req,res) => {
 
 //PERFIL
 app.get('/perfil', function(req,res){
-session=req.session;
-if(session.userid){
-    Usuarios.findByPk(session.userid).then(function(info){
-    res.render('perfil',{info : info})
-    });
-}else
-res.send('erro')
+    session=req.session;
+    if(session.userid){
+        Usuarios.findByPk(session.userid).then(function(info){
+            res.render('perfil',{
+                style : "styles.css",
+                title : "Perfil",
+                nome : info.nome,
+                curso : info.curso
+            })
+        });
+    }else
+        res.send('erro')
 });
 
 //TELA INICIAL
