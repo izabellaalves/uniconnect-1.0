@@ -11,12 +11,12 @@ const express = require("express");
 const app = express();
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
+const sessions = require('express-session');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const Sequelize = require("sequelize");
 const Usuarios = require("./models/Usuarios");
-
-
 
 const PORT = process.env.PORT || 8081;
 
@@ -24,6 +24,17 @@ app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
+
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    saveUninitialized:true,
+    cookie: { maxAge: oneDay },
+    resave: false 
+}));
+
+var session;
 
 //ROTAS
 
@@ -56,7 +67,7 @@ app.use(bodyParser.json());
         });
     });
     
-    app.post('/add-usuarios', async (req, res, next)=>{
+    app.post('/add-usuarios', async (req, res)=>{
         const hashSenha = await bcrypt.genSalt(10);
         var users = {
             nome: req.body.nome,
@@ -130,43 +141,31 @@ app.post("/validar-login", async(req, res) =>{
     if (user){
         const password_valid = await bcrypt.compare(req.body.senha, user.senha);
     if(password_valid){
-        const token = jwt.sign({matricula: user.matricula}, process.env.JWT_KEY, {expiresIn: 5000});
-        return res.status(200).send({
-            message: 'Autenticado com sucesso',
-            token: token 
-        })
-  }else{
-    res.status(401).end();
-  }}
-  })
+        session=req.session;
+        session.userid=req.body.matricula;
+        console.log(req.session)
+        res.redirect('/perfil')
+    }
+    else{
+        res.send('Invalid username or password');
+    }
+}})
 
-  function verifyJWT(req, res, next){
-    console.log(req.headers)
-    var token = req.body.token || req.query.token || req.headers[' x-access-token'];
-    console.log('1')
-    if (token) {
-        console.log('2')
-      jwt.verify(token, process.env.JWT_KEY, function(err, decoded) {      
-        if (err) { 
-          return res.json({ success: false, message: 'Failed to authenticate token.' });    
-        } else {
-          req.decoded = decoded;    
-          next();
-        }
-      });
-  
-    } else {
-      return res.status(403).send({ 
-          success: false, 
-          message: 'No token provided.' 
-      });
-    }}  
+app.get('/logout',(req,res) => {
+    req.session.destroy();
+    res.redirect('/login');
+});
 
 //PERFIL
-app.get("/perfil" , verifyJWT, (req,res)=>{
-    console.log(req.Usuariosmatricula + 'fez essa chamada');
-    res.render('perfil')
-})
+app.get('/perfil', function(req,res){
+session=req.session;
+if(session.userid){
+    Usuarios.findByPk(session.userid).then(function(info){
+    res.render('perfil',{info : info})
+    });
+}else
+res.send('erro')
+});
 
 //TELA INICIAL
 app.get("/", function(req,res){
@@ -175,6 +174,8 @@ app.get("/", function(req,res){
         style:"styles.css"
     });
 });
+
+
 
 // server 
 
