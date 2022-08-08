@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Open+Sans:wght@300;400;600&family=Poppins:ital,wght@0,200;0,300;0,500;1,500&family=Raleway:ital,wght@0,300;0,400;1,100&family=Special+Elite&display=swap');
+
+body{
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background-image: url('../imagens/background.jpg');
+    background-size: 100%;
+    background-image: cover;
+    background-repeat: no-repeat;
+    font-family: 'Special Elite', sans-serif;
+}
