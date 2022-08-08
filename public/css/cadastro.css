@@ -107,6 +107,7 @@ body{
     padding: 0.4rem 0.5rem;
     border-radius: 40px;
     cursor: pointer;
+    color: white;
 }
 
 .pronto_button button:hover {
