@@ -1,9 +1,4 @@
 //configurações
-
-/*if(process.env.NODE_ENV !== "production"){
-//    require("dotenv").config();
-}*/
-
 require("dotenv").config();
 
 const path = require("path");
@@ -28,13 +23,22 @@ app.set('view engine', '.hbs');
 const hbs = handlebars.create({});
 hbs.handlebars.registerHelper('if_eq', function(a, b, opts) {
     if (a == b) {   
+        console.log("'" + a + "'\n'" + b + "'");
         return opts.fn(this);   
     } else {
+        console.log("'" + a + "'\n'" + b + "'");
         return opts.inverse(this);
     }
 });
-
-
+hbs.handlebars.registerHelper('unless_eq', function(a, b, opts) {
+    if (a == b) {   
+        console.log("'" + a + "'\n'" + b + "'");
+        return opts.inverse(this);
+    } else {
+        console.log("'" + a + "'\n'" + b + "'");
+        return opts.fn(this);
+    }
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -101,7 +105,7 @@ var session;
             educação: req.body.educação
         };
         create_user = await Usuarios.create(users);
-        res.status(201).json(create_user);
+        res.status(201).redirect("login");//.json(create_user);
     });
         
 
@@ -220,13 +224,20 @@ app.get('/perfil', function(req,res){
 });
 
 app.get("/feed", function(req,res){
-    Usuarios.findAll().then(function(conexao){
-        res.render("feed", {
-            conexao : conexao,
-            title:"Uniconnect",
-            style:"swiper-bundle.min.css", 
-            style2:"feed.css"
-    });})
+    session=req.session;
+    if(session.userid){
+        Usuarios.findAll({
+            where: {matricula : { [Sequelize.Op.not] : session.userid}}
+        }).then((conexao) =>{
+            res.render("feed", {
+                conexao : conexao,
+                title:"Uniconnect",
+                style:"swiper-bundle.min.css", 
+                style2:"feed.css"
+            });
+        });
+    }else
+        res.send("erro")
 });
 
 //TELA INICIAL
@@ -236,8 +247,6 @@ app.get("/", function(req,res){
         style:"styles.css"
     });
 });
-
-
 
 
 // server 
