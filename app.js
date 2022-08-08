@@ -20,7 +20,10 @@ const Usuarios = require("./models/Usuarios");
 
 const PORT = process.env.PORT || 8081;
 
-app.engine('.hbs', handlebars.engine({ defaultLayout: 'main', extname: '.hbs'}));
+app.engine('.hbs', handlebars.engine({ defaultLayout: 'main', extname: '.hbs', runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+}}));
 app.set('view engine', '.hbs');
 const hbs = handlebars.create({});
 hbs.handlebars.registerHelper('if_eq', function(a, b, opts) {
@@ -217,11 +220,13 @@ app.get('/perfil', function(req,res){
 });
 
 app.get("/feed", function(req,res){
-    res.render("feed", {
-        title:"Uniconnect",
-        style:"swiper-bundle.min.css", 
-        style2:"feed.css"
-    });
+    Usuarios.findAll().then(function(conexao){
+        res.render("feed", {
+            conexao : conexao,
+            title:"Uniconnect",
+            style:"swiper-bundle.min.css", 
+            style2:"feed.css"
+    });})
 });
 
 //TELA INICIAL
