@@ -32,7 +32,6 @@ hbs.handlebars.registerHelper('if_eq', function(a, b, opts) {
 });
 
 
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -170,8 +169,6 @@ var session;
 
     });
 
-
-
 //LOGIN
 app.get("/login", function(req, res){
     res.render("login", {
@@ -224,6 +221,13 @@ app.get("/", function(req,res){
     });
 });
 
+//feed
+app.get('/feed', function(req, res){
+    res.render('feed', {
+        style: "feed.css",
+        //style: "swiper-blunde.min.css"
+    })
+})
 
 
 // server 
