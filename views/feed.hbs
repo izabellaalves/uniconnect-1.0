@@ -2,24 +2,22 @@
         <div class="slide-content">
             <div class="card-wrapper swiper-wrapper">
                 {{#each conexao}}
-                    {{#unless_eq logado nome}}
-                    <div class="card swiper-slide">
-                        <div class="image-content">
-                            <span class="overlay"></span>
+                <div class="card swiper-slide">
+                    <div class="image-content">
+                        <span class="overlay"></span>
 
-                            <div class="card-image">
-                                <img src="imagens/{{nome}}.jpg" alt="" class="card-image">
-                            </div>
-                        </div>
-
-                        <div class="card-content">
-                            <h2 class="name">{{nome}}</h2>
-                            <p class="description">{{curso}}</p>
-
-                            <button class="button">Conectar</button>
+                        <div class="card-image">
+                            <img src="imagens/{{nome}}.jfif" alt="" class="card-image">
                         </div>
                     </div>
-                    {{/unless_eq}}
+
+                    <div class="card-content">
+                        <h2 class="name">{{nome}}</h2>
+                        <p class="description">{{curso}}</p>
+
+                        <a href="/lalala/:{{matricula}}"><button>Ver perfil</button></a>
+                    </div>
+                </div>
                 {{/each}}
             </div>
         </div>
