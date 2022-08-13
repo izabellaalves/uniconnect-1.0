@@ -12,6 +12,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const Sequelize = require("sequelize");
 const Usuarios = require("./models/Usuarios");
+const { info } = require("console");
 
 const PORT = process.env.PORT || 8081;
 
@@ -234,11 +235,34 @@ app.get("/feed", function(req,res){
                 title:"Uniconnect",
                 style:"swiper-bundle.min.css", 
                 style2:"feed.css"
-            });
+            }); 
         });
     }else
         res.send("erro")
 });
+
+app.get("/lalala/:matricula", function(req, res){
+    var matriculausuarioatual = req.params.matricula;
+    matriculausuarioatual = matriculausuarioatual.substring(1);
+    Usuarios.findByPk(matriculausuarioatual).then(function(interesses){
+        res.render('perfiloutros', {
+            nome: interesses.nome,
+            curso: interesses.curso,
+            musicas : interesses.musicas,
+            filmes : interesses.filmes,
+            esportes : interesses.esportes,
+            educação : interesses.educacao,
+            jogos : interesses.jogos,
+            livros: interesses.livros
+
+
+        })
+
+        })
+    })
+  
+
+
 
 //TELA INICIAL
 app.get("/", function(req,res){
