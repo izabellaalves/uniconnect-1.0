@@ -13,6 +13,11 @@ const jwt = require('jsonwebtoken');
 const Sequelize = require("sequelize");
 const Usuarios = require("./models/Usuarios");
 const { info } = require("console");
+const { Server } = require("http");
+
+var http = require('http').Server(app);
+// passa o http-server par ao socketio
+var io = require('socket.io')(http);
 
 const PORT = process.env.PORT || 8081;
 
@@ -254,27 +259,141 @@ app.get("/lalala/:matricula", function(req, res){
             educação : interesses.educacao,
             jogos : interesses.jogos,
             livros: interesses.livros
-
-
         })
-
         })
     })
-  
 
+//app.get('/chat', function(req,res){
+   // session=req.session;
+   // if(session.userid){
+    //    Usuarios.findByPk(session.userid).then(function(chat){
+      //      res.render('chat',{
+       //         nome : chat.nome
+        //    })
+       // });
+      //  io.on('connection', function(socket){
+       //     socket.on('chat message', function(msg){
+       //         io.emit('chat message', msg);
+     //       })
+      //  })
+  //   }else
+    //    res.send("erro");
+//})
+
+
+// cria uma rota para fornecer o arquivo index.html
+app.get('/prechat', function(req, res){
+    res.render('prechat', {
+        style: "prechat.css"
+    });
+  });
+
+app.get('/chatesportes', function(req, res){
+session=req.session;
+if(session.userid){
+    Usuarios.findByPk(session.userid).then(function(info){
+    res.render('chatesportes', {
+        nome: info.nome
+    })
+    io.on('connection', function(socket){
+        socket.on('chat esportes', function(msg){
+          io.emit('chat esportes', msg);
+        });
+      });
+})
+}})
+
+app.get('/chatmusicas', function(req, res){
+    session=req.session;
+    if(session.userid){
+        Usuarios.findByPk(session.userid).then(function(info){
+        res.render('chatmusicas', {
+            nome: info.nome
+        })
+    io.on('connection', function(socket){
+        socket.on('chat musicas', function(msg){
+          io.emit('chat musicas', msg);
+        });
+      });
+})
+    }})
+
+app.get('/chatfilmes', function(req, res){
+session=req.session;
+if(session.userid){
+    Usuarios.findByPk(session.userid).then(function(info){
+    res.render('chatfilmes', {
+        nome: info.nome
+    })
+    io.on('connection', function(socket){
+        socket.on('chat filmes', function(msg){
+          io.emit('chat filmes', msg);
+        });
+      });
+})
+}})
+
+app.get('/chatejogos', function(req, res){
+    session=req.session;
+    if(session.userid){
+        Usuarios.findByPk(session.userid).then(function(info){
+        res.render('chatejogos', {
+            nome: info.nome
+        })
+    io.on('connection', function(socket){
+        socket.on('chat jogos', function(msg){
+          io.emit('chat jogos', msg);
+        });
+      });
+})
+    }})
+
+app.get('/chatlivros', function(req, res){
+session=req.session;
+if(session.userid){
+    Usuarios.findByPk(session.userid).then(function(info){
+    res.render('chatlivros', {
+        nome: info.nome
+    })
+    io.on('connection', function(socket){
+        socket.on('chat livros', function(msg){
+          io.emit('chat livros', msg);
+        });
+      });
+})
+}})
+
+app.get('/chatestudos', function(req, res){
+    session=req.session;
+    if(session.userid){
+        Usuarios.findByPk(session.userid).then(function(info){
+        res.render('chatestudos', {
+            nome: info.nome
+        })
+    io.on('connection', function(socket){
+        socket.on('chat estudos', function(msg){
+          io.emit('chat estudos', msg);
+        });
+        socket.on('disconnect', function(){
+            console.log("disconnected!");
+          });
+      });
+})
+}})
 
 
 //TELA INICIAL
 app.get("/", function(req,res){
     res.render("index", {
-        title:"Uniconnect",
-        style:"styles.css"
+      title:"Uniconnect",
+       style:"styles.css"
     });
 });
 
 
+
 // server 
 
-app.listen(PORT, function(){
-    console.log("Servidor rodando na porta " + PORT);
-});
+http.listen(8081, function(){
+    console.log('Servidor rodando em: http://localhost:8081');
+  });
