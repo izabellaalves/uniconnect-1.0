@@ -219,7 +219,7 @@ app.get('/perfil', function(req,res){
     if(session.userid){
         Usuarios.findByPk(session.userid).then(function(info){
             res.render('perfil',{
-                style : "styles.css",
+                style : "perfil.css",
                 title : "Perfil",
                 nome : info.nome,
                 curso : info.curso
@@ -251,6 +251,7 @@ app.get("/lalala/:matricula", function(req, res){
     matriculausuarioatual = matriculausuarioatual.substring(1);
     Usuarios.findByPk(matriculausuarioatual).then(function(interesses){
         res.render('perfiloutros', {
+            style: "perfiloutros.css",
             nome: interesses.nome,
             curso: interesses.curso,
             musicas : interesses.musicas,
@@ -258,7 +259,12 @@ app.get("/lalala/:matricula", function(req, res){
             esportes : interesses.esportes,
             educação : interesses.educacao,
             jogos : interesses.jogos,
-            livros: interesses.livros
+            livros: interesses.livros,
+            whatsapp: interesses.whatsapp,
+            discord: interesses.discord, 
+            twitter: interesses.twitter,
+            instagram: interesses.instagram
+
         })
         })
     })
@@ -333,11 +339,11 @@ if(session.userid){
 })
 }})
 
-app.get('/chatejogos', function(req, res){
+app.get('/chatjogos', function(req, res){
     session=req.session;
     if(session.userid){
         Usuarios.findByPk(session.userid).then(function(info){
-        res.render('chatejogos', {
+        res.render('chatjogos', {
             nome: info.nome
         })
     io.on('connection', function(socket){
