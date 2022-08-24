@@ -8,19 +8,15 @@ body{
     position: relative;
     background-image: url('../imagens/background.jpg');
     background-size: 100%;
-    background-image: cover;
     background-repeat: no-repeat;
-    font-family: 'Special Elite', sans-serif;
-    align-items: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
-h1 {
-    color: aliceblue;
-    align-items: center;
-}
+
+
 .body ::before {
     content: '';
-    background-color: rgb(0, 0, 0 .5);
+    background-color: #a0a0a07a;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -30,75 +26,113 @@ h1 {
     right: 0;
 }
 
-form {
-    padding: 60px;
-    z-index: 90;
-    top: 105px;
+
+.login_body {
     position: relative;
+    padding: 50px;
+    z-index: 90;
+    top: 80px;
     max-width: 400px;
-    height: 400px;
+    height: 480px;
     margin-left: 50%;
-    background-color: rgba(174, 174, 174, 0.423);
+    background-color: rgba(255, 255, 255, 0.238);
     border-radius: 10px;
     box-sizing: border-box;
     transform: translateX(-50%);
+    
+    
 }
 
-button {
+.buttom{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+h2 {
+    color: #ffffff;
+    position: relative;
+    top: -18px;
+    font-family:'Special Elite', sans-serif;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin-left: 5px;
+}
+
+
+ul{
+    display: flex;
+
+}
+
+ul li{
+    position: relative;
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    top: 100px;
+    color: #ff5d73;
+    font-size: 30px;
+    height: 70px;
+    width: 70px;
+    background: #171515;
+    line-height: 70px;
+    border-radius: 50%;
+    margin: 0 20px;
+}
+
+.feed-button button{
+    position: relative;
+    top: 20px;
+    left:10px;
+    width:100%;
+    margin-top:-1.3rem;
     border: none;
     background-color: #FF5D73;
-    padding: 0.4rem 0.5rem;
+    padding: 0.82rem;
     border-radius: 40px;
     cursor: pointer;
-    color: white;
-    left: 150px;
-}
-
-button:hover{
-    opacity: 0.8;
-}
-
-select,
-input{
-    width: 400px;
-    height: 30px;
-    padding: 5px 0px;
-    outline: none;
-}
-
-.row{
-    padding: 5px 0px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-top: 18px;
 
 }
 
-.container {
-    padding: 60px;
-    z-index: 90;
-    top: 105px;
+.feed-button button hover{
+    background-color: #FF5D73;
+
+}
+
+.feed-button button a{
+    text-decoration: none;
+    font-size: 0.93rem;
+    font-weight: 10;
+    color:#fff;
+}
+
+.grupo-button button{
     position: relative;
-    max-width: 400px;
-    height: 400px;
-    margin-left: 50%;
-    background-color: rgba(174, 174, 174, 0.423);
-    border-radius: 10px;
-    box-sizing: border-box;
-    transform: translateX(-50%);
-}
-
-.new_message {
-    padding: 5px;
-}
-
-#message_input {
-    margin-top: 50px;
-}
-
-.logout {
-    background: palevioletred;
+    
+    left: 10px;
+    width:100%;
+    margin-top:0.5rem;
+    border: none;
+    background-color: #FF5D73;
+    padding: 0.82rem;
+    border-radius: 40px;
     cursor: pointer;
+
 }
 
+.grupo-button button hover{
+    background-color: #FF5D73;
+
+}
+
+.grupo-button button a{
+    text-decoration: none;
+    font-size: 0.93rem;
+    font-weight: 10;
+    color:#fff;
+
+}
