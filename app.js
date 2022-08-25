@@ -12,12 +12,15 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const Sequelize = require("sequelize");
 const Usuarios = require("./models/Usuarios");
+const alg = require("./public/js/alg.js");
+
 const { info } = require("console");
 const { Server } = require("http");
 
 var http = require('http').Server(app);
 // passa o http-server par ao socketio
 var io = require('socket.io')(http);
+
 
 const PORT = process.env.PORT || 8081;
 
@@ -34,15 +37,6 @@ hbs.handlebars.registerHelper('if_eq', function(a, b, opts) {
     } else {
         console.log("'" + a + "'\n'" + b + "'");
         return opts.inverse(this);
-    }
-});
-hbs.handlebars.registerHelper('unless_eq', function(a, b, opts) {
-    if (a == b) {   
-        console.log("'" + a + "'\n'" + b + "'");
-        return opts.inverse(this);
-    } else {
-        console.log("'" + a + "'\n'" + b + "'");
-        return opts.fn(this);
     }
 });
 
@@ -229,7 +223,7 @@ app.get('/perfil', function(req,res){
         res.send('erro')
 });
 
-app.get("/feed", function(req,res){
+/*app.get("/feed", function(req,res){
     session=req.session;
     if(session.userid){
         Usuarios.findAll({
@@ -244,6 +238,56 @@ app.get("/feed", function(req,res){
         });
     }else
         res.send("erro")
+});*/
+
+app.get("/feed", (req, res) =>{
+    var orderedFeed = [];
+    var tempFeed = {};
+    var feed = {};
+    session = req.session;
+    if(session.userid){
+        Usuarios.count().then((count) => {
+            Usuarios.findByPk(session.userid).then((info) =>{
+                Usuarios.findAll({
+                    where: {matricula : { [Sequelize.Op.not] : session.userid}}
+                }).then(async (conexao) =>{
+                    let matzero = false;
+                    for(var i = 0; i < count-1; i++){
+                        if(conexao[i].matricula == 0){matzero = true; continue;}
+                        let comp = alg.match(info, conexao[i]);
+                        tempFeed[conexao[i].matricula] = comp;
+                    }
+
+
+                    var items = Object.keys(tempFeed).map(
+                        (key) => { return [key, tempFeed[key]] });
+                      
+                    items.sort(
+                        (first, second) => { return first[1] - second[1] }
+                    );
+                    
+                    orderedFeed = items.map(
+                        (e) => { return e[0] }
+                    );
+                    
+                    for(var i = 0; i < count-1-matzero; i++){
+                        feed[i] = await Usuarios.findByPk(orderedFeed[i]);
+                        console.log("compatibilidade - " + tempFeed[orderedFeed[i]]);
+                    }
+                    
+                    res.render("feed", {
+                        feed : feed,
+                        title:"Uniconnect",
+                        style:"swiper-bundle.min.css", 
+                        style2:"feed.css"
+                    }); 
+                })
+            })
+        })
+        
+    }else
+        res.send("erro")
+
 });
 
 app.get("/lalala/:matricula", function(req, res){
@@ -395,6 +439,17 @@ app.get("/", function(req,res){
        style:"styles.css"
     });
 });
+
+/*Usuarios.count().then((count) => {
+    Usuarios.findByPk(1115).then((info) => {
+        Usuarios.findAll().then((info2) =>{
+            for(var i = 1; i < count; i++){
+                console.log("-----------" +alg.match(info,info2[i]));
+            }
+        })
+    })
+})*/
+
 
 
 
