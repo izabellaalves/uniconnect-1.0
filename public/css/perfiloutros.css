@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Open+Sans:wght@300;400;600&family=Poppins:ital,wght@0,200;0,300;0,500;1,500&family=Raleway:ital,wght@0,300;0,400;1,100&family=Special+Elite&display=swap');
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background-image: url('../imagens/background.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-family: 'Special Elite', sans-serif;
+}
+
+.form-image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 90px;
+    height: 90px;
+    top: 20px;
+    margin-left: 145px;
+    background-color: #ffffff;
+    border-radius: 50%;
+
+}
+
+
+.login_body {
+    position: relative;
+    padding: 15px;
+    top: 90px;
+    max-width: 400px;
+    height: 500px;
+    margin-left: 50%;
+    background-color: rgba(255, 255, 255, 0.238);
+    border-radius: 10px;
+    box-sizing: border-box;
+    transform: translateX(-50%);
+    overflow-y: scroll ;
+}
+
+.login_body::-webkit-scrollbar{
+    width: 12px;
+}
+
+.login_body::-webkit-scrollbar-track{
+    background: rgba(174, 174, 174, 0.84);
+    border-radius: 10px;
+}
+
+.login_body::-webkit-scrollbar-thumb{
+    background-color: rgb(218, 217, 217);
+    border-radius: 10px;
+    border: 0px solid rgb(0, 0, 0, 0.5);
+}
+
+.linha{
+    width: 373px;
+    height: 5px;
+    background-color: #ff5d73;
+    position: absolute;
+    margin-top: 50px;
+    border-radius: 50%;
+    top: 250px;
+}
+
+
+h1{
+    color:#ff5d73;
+    display: flex;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    top: 30px;
+    margin-left: 80px;
+}
+
+.curso{
+    color: #ffffff;
+    display: flex;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    top: 3px;
+    margin-left: 50px;
+}
+
+
+.interesses {
+    color: #ff5d73;
+    display: flex;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    top: 80px;
+    margin-left: 120px;}
+
+h3 {
+    color: #ffffff;
+    position: relative;
+    top: 80px;
+    left: 0px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin-left: 20px;
+    border: 10px;}
+
+.feed {
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 16px;
+    background-color: #FF5D73;
+    border-radius: 6px;
+    margin: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    align-items: center;
+    left: 130px;
+}
+
+.dado {
+    color: #FBBB10;
+    position: relative;
+    top: 80px;
+    left: 0px;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin-left: 20px;
+    border: 10px;
+    font-family: 'Poppins';
+}
+
+a {
+    text-decoration: none;
+    color: #FFF;
+}

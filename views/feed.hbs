@@ -1,7 +1,10 @@
+
+<a href="/perfil"><button class="voltar">Perfil</button></a>
+
 <div class="slide-container swiper">
         <div class="slide-content">
             <div class="card-wrapper swiper-wrapper">
-                {{#each conexao}}
+                {{#each feed}}
                 <div class="card swiper-slide">
                     <div class="image-content">
                         <span class="overlay"></span>
@@ -15,7 +18,7 @@
                         <h2 class="name">{{nome}}</h2>
                         <p class="description">{{curso}}</p>
 
-                        <a href="/lalala/:{{matricula}}"><button>Ver perfil</button></a>
+                        <a href="/lalala/:{{matricula}}"><button class="button">Ver perfil</button></a>
                     </div>
                 </div>
                 {{/each}}
