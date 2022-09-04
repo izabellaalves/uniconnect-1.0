@@ -4,7 +4,11 @@
          <div class="login_body">
          <div class="login_box">
             <div>
-        <img class="form-image" src="assets/img/user.png" alt="">
+        {{#if foto}}
+        <img class="form-image" src="imagens/uploaded/{{matricula}}{{foto}}" alt="Foto">
+        {{else}}
+        <img class="form-image" src="imagens/pessoa.png" alt="">
+        {{/if}}
         </div>
         <div> <h1>{{nome}}</h1>  
                         <h2>{{curso}}</h2>

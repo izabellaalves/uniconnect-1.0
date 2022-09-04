@@ -2,8 +2,11 @@
 
     <div class="login_body">
            
-
-    <div><img class="form-image" src="assets/img/user.png" alt="">
+    {{#if foto}}
+    <div><img class="form-image" src="../imagens/uploaded/{{matricula}}{{foto}}" alt="{{nome}}">
+    {{else}}
+    <div><img class="form-image" src="../imagens/pessoa.png" alt="">
+    {{/if}}
 
         <div><h1>{{nome}}</h1></div>
         <div class="curso"><h2>{{curso}}</h2></div>

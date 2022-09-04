@@ -3,10 +3,14 @@
          <div class="login_box">
             <div class="form-image">
                 <span><img height="40px" src="../imagens/rose.png" alt="logo"></span>
-<form action="/perfil/subm-edit" method="POST">
+<form action="/perfil/subm-edit" method="POST" enctype="multipart/form-data">
                     <div class="input_grup">
                     <h1>Editar perfil</h1>
-                    <form action="/perfil/subm-edit" method="POST">
+                    <form action="/perfil/subm-edit" method="POST" enctype="multipart/form-data">
+                    <div class="input-box">
+                        <label class="names"></label>
+                        <input type="file" name="foto" accept="image/png image/jpeg image/jpg"/></div>
+                    <br>
                         <div class="input-box">
                         <label class="names"></label>
                         <input type="text" name="nome" value="{{nome}}"></div>
