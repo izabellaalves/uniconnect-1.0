@@ -103,9 +103,11 @@ var session;
                     break;
             }
 
-            await fs.rename((path.join(__dirname,"src","temp", req.file.filename)), (path.join(__dirname,"public","imagens","uploaded", (req.body.matricula + extension))), (err) => {
+            await fs.promises.rename((path.join(__dirname,"src","temp", req.file.filename)), (path.join(__dirname,"public","imagens","uploaded", (req.body.matricula + extension))), (err) => {
                 if(err) throw err;
             })
+
+            fs.unlink(path.join("src", "temp", req.file.filename), (err) => {});
         }
         console.log(req.body);
         const hashSenha = await bcrypt.genSalt(10);
@@ -184,13 +186,15 @@ var session;
                         extension = ".jpeg";
                         break;    
                 }
-                await fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".png"))), (err) => {});
-                await fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".jpeg"))), (err) => {});
-                await fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".jpg"))), (err) => {});
+                fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".png"))), (err) => {});
+                fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".jpeg"))), (err) => {});
+                fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".jpg"))), (err) => {});
                 
-                await fs.rename((path.join(__dirname,"src","temp", req.file.filename)), (path.join(__dirname,"public","imagens","uploaded", (session.userid + extension))), (err) => {
+                await fs.promises.rename((path.join(__dirname,"src","temp", req.file.filename)), (path.join(__dirname,"public","imagens","uploaded", (session.userid + extension))), (err) => {
                     if(err) throw err;
                 })
+
+                fs.unlink(path.join("src", "temp", req.file.filename), (err) => {});
             }
             var users = {
                 nome: req.body.nome,
