@@ -14,6 +14,10 @@ const Usuarios = db.sequelize.define('usuarios', {
     curso: {
         type: db.Sequelize.STRING
     },
+    foto: {
+        type: db.Sequelize.STRING,
+        allowNull: true
+    },
     senha: {
         type: db.Sequelize.STRING,
     },
