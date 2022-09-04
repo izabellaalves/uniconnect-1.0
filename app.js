@@ -5,7 +5,7 @@ const path = require("path");
 const express = require("express");
 const app = express();
 const handlebars = require("express-handlebars");
-const bodyParser = require("body-parser");
+//const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const sessions = require('express-session');
 const bcrypt = require("bcrypt");
@@ -13,6 +13,9 @@ const jwt = require('jsonwebtoken');
 const Sequelize = require("sequelize");
 const Usuarios = require("./models/Usuarios");
 const alg = require("./public/js/alg.js");
+const multer = require('multer');
+const upload = multer({dest:'./src/temp'});
+const fs = require("fs");
 
 const { info } = require("console");
 const { Server } = require("http");
@@ -40,8 +43,8 @@ hbs.handlebars.registerHelper('if_eq', function(a, b, opts) {
     }
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
 app.use(cookieParser());
 
 const oneDay = 1000 * 60 * 60 * 24;
@@ -85,13 +88,33 @@ var session;
         });
     });
     
-    app.post('/add-usuarios', async (req, res)=>{
+    app.post('/add-usuarios', upload.single('foto'), async (req, res)=>{
+        if(req.file){
+            var extension;
+            switch(req.file.mimetype){
+                case "image/png":
+                    extension = ".png";
+                    break;
+                case "image/jpg":
+                    extension = ".jpg";
+                    break;
+                case "image/jpeg":
+                    extension = ".jpeg";
+                    break;
+            }
+
+            await fs.rename((path.join(__dirname,"src","temp", req.file.filename)), (path.join(__dirname,"public","imagens","uploaded", (req.body.matricula + extension))), (err) => {
+                if(err) throw err;
+            })
+        }
+        console.log(req.body);
         const hashSenha = await bcrypt.genSalt(10);
         var users = {
             nome: req.body.nome,
             email: req.body.email,
             matricula: req.body.matricula,
             curso: req.body.curso,
+            foto: extension,
             senha: await bcrypt.hash(req.body.senha, hashSenha),
             whatsapp: req.body.whatsapp,
             discord: req.body.discord,
@@ -145,9 +168,30 @@ var session;
             res.send('erro');
         });
 
-    app.post("/perfil/subm-edit", async (req, res) => {
+    app.post("/perfil/subm-edit", upload.single("foto"), async (req, res) => {
         session=req.session;
         if(session.userid){
+            if(req.file){
+                var extension;
+                switch(req.file.mimetype){
+                    case "image/png":
+                        extension = ".png";
+                        break;
+                    case "image/jpg":
+                        extension = ".jpg";
+                        break;
+                    case "image/jpeg":
+                        extension = ".jpeg";
+                        break;    
+                }
+                await fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".png"))), (err) => {});
+                await fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".jpeg"))), (err) => {});
+                await fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".jpg"))), (err) => {});
+                
+                await fs.rename((path.join(__dirname,"src","temp", req.file.filename)), (path.join(__dirname,"public","imagens","uploaded", (session.userid + extension))), (err) => {
+                    if(err) throw err;
+                })
+            }
             var users = {
                 nome: req.body.nome,
                 email: req.body.email,
@@ -156,13 +200,16 @@ var session;
                 discord: req.body.discord,
                 instagram: req.body.instagram,
                 twitter: req.body.twitter,
-                musicas:req.body.musicas,
+                musicas: req.body.musicas,
                 jogos: req.body.jogos,
                 filmes: req.body.filmes,
                 livros: req.body.livros,
                 esportes: req.body.esportes,
                 educação: req.body.educação
             };
+            if(extension){
+                users.foto = extension;
+            }
             await Usuarios.update(users, {
                 where: {matricula : session.userid}
             });
@@ -171,11 +218,11 @@ var session;
             res.send('erro');
     });
 
-    app.get("/perfil/trocarsenha", function(req,res){
+    /*app.get("/perfil/trocarsenha", function(req,res){
 
         res.sendFile(__dirname + "/perfil/eu.html");
 
-    });
+    });*/
 
 
 
@@ -187,8 +234,8 @@ app.get("/login", function(req, res){
     });
 });
 
-app.post("/validar-login", async(req, res) =>{
-    const user= await Usuarios.findOne({where: {matricula: req.body.matricula}});
+app.post("/validar-login", multer().none(), async(req, res) =>{
+    const user = await Usuarios.findOne({where: {matricula: req.body.matricula}});
     if (user){
         const password_valid = await bcrypt.compare(req.body.senha, user.senha);
     if(password_valid){
@@ -216,7 +263,9 @@ app.get('/perfil', function(req,res){
                 style : "perfil.css",
                 title : "Perfil",
                 nome : info.nome,
-                curso : info.curso
+                curso : info.curso,
+                foto : info.foto,
+                matricula : info.matricula
             })
         });
     }else
@@ -290,14 +339,16 @@ app.get("/feed", (req, res) =>{
 
 });
 
-app.get("/lalala/:matricula", function(req, res){
+app.get("/usuario/:matricula", function(req, res){
     var matriculausuarioatual = req.params.matricula;
-    matriculausuarioatual = matriculausuarioatual.substring(1);
+    //matriculausuarioatual = matriculausuarioatual.substring(1);
     Usuarios.findByPk(matriculausuarioatual).then(function(interesses){
         res.render('perfiloutros', {
             style: "perfiloutros.css",
             nome: interesses.nome,
+            matricula : interesses.matricula,
             curso: interesses.curso,
+            foto : interesses.foto,
             musicas : interesses.musicas,
             filmes : interesses.filmes,
             esportes : interesses.esportes,
