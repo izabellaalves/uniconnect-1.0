@@ -1,0 +1,85 @@
+*{
+    padding: 0;
+    margin: 0;  
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+
+body{
+    height: 100vh;
+    background-image: url('../imagens/background.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    width: 900px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.Esther {
+    flex: 1;
+    color: white;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px 30px;
+}
+
+.messagem {
+    background-color:#ff0023;
+    padding: 10px;
+    color: white;
+    width: fit-content;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.user-messagem{
+    margin-left: auto;
+    background-color: #ff5d73;
+    color: white;
+}
+
+.footer form{
+    display: flex;
+    position:relative;
+    top: 420px;
+    width: 905px;
+    right: 31px;
+    
+}
+
+form input{
+    flex: 1;
+    height: 40px;
+    border-radius: 10px;
+    outline: none;
+    padding-left: 10px;
+    font-size: 16px;
+    background-color: #8b8b8b;
+    color: white;
+}
+
+
+form button{
+    width: 100px;
+    font-size: 18px;
+    border-radius: 10px;
+    outline: none;
+    background-color: #ff5d73;
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover{
+    background-color: #ff0023;
+    transition: 0.2s ease;
+}

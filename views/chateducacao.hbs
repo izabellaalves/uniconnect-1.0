@@ -14,15 +14,19 @@
         flex-direction: column; 
         box-shadow: 2px 2px 20px rgba(248, 248, 248, 0.4); 
         border-radius: 10px; 
-        background-image: url('../imagens/filmes.jpg');
+        background-image: url('../imagens/estudos.jpg');
         background-size: 100%;
         }
     </style>
  
+ 
     <!--  Lista de mensagens -->
+ 
 <div class="container">
 <ul class="ul" id="messages"></ul>
 </div>
+ 
+ 
     <!--  input com e botão de submit-->
  
 <div class="send">
@@ -61,7 +65,7 @@
         nome_usuario = ff[Math.floor(Math.random() * ff.length)];
     }
  
-    socket.emit('chat filmes', "Bem vindo(a) a sala de filmes, " + nome_usuario);
+    socket.emit('chat educacao', "Bem vindo(a) a sala de estudos, " + nome_usuario);
     // adiciona um addEventListener para o botão de submit
     document.getElementById('enviar_menssagem').addEventListener("click", enviar_menssagem);
     // cria a função que conecta no websocket e emite a mensagem
@@ -71,13 +75,13 @@
       if (msg.length > 0) {
           console.log(msg);
           // concatena o nome de usuário e a mensagem para enviar ao socketIo
-          socket.emit('chat filmes', nome_usuario + ": " + msg);
+          socket.emit('chat educacao', nome_usuario + ": " + msg);
           // reseta o valor do input da mensagem
           document.getElementById('menssagem').value = "";
       }
     }
     // sempre que receber uma mensagem ela é adicionada a lista
-    socket.on('chat filmes', function(msg){
+    socket.on('chat educacao', function(msg){
         // busca o elemento UL
         let ul = document.getElementById("messages");
         // cria um elemento LI
