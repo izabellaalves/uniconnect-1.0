@@ -14,6 +14,7 @@ const Sequelize = require("sequelize");
 const Usuarios = require("./models/Usuarios");
 const alg = require("./public/js/alg.js");
 const multer = require('multer');
+const PORT = process.env.PORT || 8081;
 
 const { info } = require("console");
 const { Server } = require("http");
@@ -69,7 +70,6 @@ var session;
         });
     });
     
-    //Post
     app.post('/add-usuarios', upload.single('foto'), async (req, res)=>{
         if(req.file){
             var extension;
@@ -84,11 +84,12 @@ var session;
                     extension = ".jpeg";
                     break;
             }
-            //
+            //Foto sendo movida de temp para imagens/uploaded
             await fs.promises.rename((path.join(__dirname,"src","temp", req.file.filename)), (path.join(__dirname,"public","imagens","uploaded", (req.body.matricula + extension))), (err) => {
                 if(err) throw err;
             })
 
+            //Exclusão do arquivo temp
             fs.unlink(path.join("src", "temp", req.file.filename), (err) => {});
         }
         console.log(req.body);
@@ -169,10 +170,12 @@ var session;
                 fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".jpeg"))), (err) => {});
                 fs.unlink((path.join(__dirname, "public","imagens","uploaded", (session.userid + ".jpg"))), (err) => {});
                 
+                //Arquivo temp -> imagens/uploaded
                 await fs.promises.rename((path.join(__dirname,"src","temp", req.file.filename)), (path.join(__dirname,"public","imagens","uploaded", (session.userid + extension))), (err) => {
                     if(err) throw err;
                 })
 
+                //Exclusão arquivo temp
                 fs.unlink(path.join("src", "temp", req.file.filename), (err) => {});
             }
             var users = {
@@ -479,6 +482,6 @@ app.get("/", function(req,res){
 
 // server 
 
-http.listen(8081, function(){
-    console.log('Servidor rodando em: http://localhost:8081');
+http.listen(PORT, function(){
+    console.log('Servidor rodando em: http://localhost:' + PORT);
   });
