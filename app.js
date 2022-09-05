@@ -61,7 +61,7 @@ var session;
 
     //REDIRECT DA TELA INICIAL
 
-//Cadastro de informações básicas
+//Cadastro de Usuário
     app.get('/cadastrodeusuarios', function(req, res){
         res.render('cadastrodeusuarios', {
             title: "Cadastrar usuário",
@@ -69,6 +69,7 @@ var session;
         });
     });
     
+    //Post
     app.post('/add-usuarios', upload.single('foto'), async (req, res)=>{
         if(req.file){
             var extension;
@@ -83,7 +84,7 @@ var session;
                     extension = ".jpeg";
                     break;
             }
-
+            //
             await fs.promises.rename((path.join(__dirname,"src","temp", req.file.filename)), (path.join(__dirname,"public","imagens","uploaded", (req.body.matricula + extension))), (err) => {
                 if(err) throw err;
             })
@@ -116,9 +117,9 @@ var session;
         
 
 //Esqueci minha senha
-    app.get("/recuperar_senha", function(req,res){
+    /*app.get("/recuperar_senha", function(req,res){
         res.sendFile(__dirname + "/recuperar_senha.html");
-    });
+    });*/
 
 //EDITAR PERFIL
 
@@ -253,13 +254,6 @@ app.get('/perfil', function(req,res){
     }else
         res.send('erro')
 });
-
-const upload = multer ({ dest: './uploads'});
-
-//upload de fotos
-app.post('/uploads', upload.single('foto'), (req, res) => {
-    return res.send('ok')
-})
 
 //FEED
 app.get("/feed", (req, res) =>{
