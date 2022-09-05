@@ -14,18 +14,13 @@ const Sequelize = require("sequelize");
 const Usuarios = require("./models/Usuarios");
 const alg = require("./public/js/alg.js");
 const multer = require('multer');
+
 const upload = multer({dest:'./src/temp'});
 const fs = require("fs");
-
-const { info } = require("console");
-const { Server } = require("http");
 
 var http = require('http').Server(app);
 // passa o http-server par ao socketio
 var io = require('socket.io')(http);
-
-
-const PORT = process.env.PORT || 8081;
 
 app.engine('.hbs', handlebars.engine({ defaultLayout: 'main', extname: '.hbs', runtimeOptions: {
     allowProtoPropertiesByDefault: true,
@@ -61,22 +56,6 @@ var session;
 
     //Páginas estáticas e dir public
     app.use(express.static(path.join(__dirname, "public")));
-
-    //Teste de template
-    app.get("/template", function(req,res){
-        
-        res.render("layouts/main", {
-            title: "Template",
-            style: "styles.css"
-        });
-
-    });
-
-    app.get("/form", function(req,res){
-    
-        res.render("formulario");
-
-    });
 
     //REDIRECT DA TELA INICIAL
 
@@ -138,9 +117,6 @@ var session;
     app.get("/recuperar_senha", function(req,res){
         res.sendFile(__dirname + "/recuperar_senha.html");
     });
-
-
-
 
 //EDITAR PERFIL
 
@@ -276,23 +252,14 @@ app.get('/perfil', function(req,res){
         res.send('erro')
 });
 
-/*app.get("/feed", function(req,res){
-    session=req.session;
-    if(session.userid){
-        Usuarios.findAll({
-            where: {matricula : { [Sequelize.Op.not] : session.userid}}
-        }).then((conexao) =>{
-            res.render("feed", {
-                conexao : conexao,
-                title:"Uniconnect",
-                style:"swiper-bundle.min.css", 
-                style2:"feed.css"
-            }); 
-        });
-    }else
-        res.send("erro")
-});*/
+const upload = multer ({ dest: './uploads'});
 
+//upload de fotos
+app.post('/uploads', upload.single('foto'), (req, res) => {
+    return res.send('ok')
+})
+
+//FEED
 app.get("/feed", (req, res) =>{
     var orderedFeed = [];
     var tempFeed = {};
@@ -368,123 +335,128 @@ app.get("/usuario/:matricula", function(req, res){
         })
     })
 
-//app.get('/chat', function(req,res){
-   // session=req.session;
-   // if(session.userid){
-    //    Usuarios.findByPk(session.userid).then(function(chat){
-      //      res.render('chat',{
-       //         nome : chat.nome
-        //    })
-       // });
-      //  io.on('connection', function(socket){
-       //     socket.on('chat message', function(msg){
-       //         io.emit('chat message', msg);
-     //       })
-      //  })
-  //   }else
-    //    res.send("erro");
-//})
 
-
-// cria uma rota para fornecer o arquivo index.html
+// CHAT
 app.get('/prechat', function(req, res){
     res.render('prechat', {
         style: "prechat.css"
     });
   });
 
-app.get('/chatesportes', function(req, res){
-session=req.session;
-if(session.userid){
-    Usuarios.findByPk(session.userid).then(function(info){
-    res.render('chatesportes', {
-        nome: info.nome
-    })
-    io.on('connection', function(socket){
-        socket.on('chat esportes', function(msg){
-          io.emit('chat esportes', msg);
-        });
-      });
-})
-}})
-
-app.get('/chatmusicas', function(req, res){
-    session=req.session;
-    if(session.userid){
-        Usuarios.findByPk(session.userid).then(function(info){
-        res.render('chatmusicas', {
-            nome: info.nome
-        })
-    io.on('connection', function(socket){
-        socket.on('chat musicas', function(msg){
-          io.emit('chat musicas', msg);
-        });
-      });
-})
-    }})
-
-app.get('/chatfilmes', function(req, res){
-session=req.session;
-if(session.userid){
-    Usuarios.findByPk(session.userid).then(function(info){
-    res.render('chatfilmes', {
-        nome: info.nome
-    })
-    io.on('connection', function(socket){
-        socket.on('chat filmes', function(msg){
-          io.emit('chat filmes', msg);
-        });
-      });
-})
-}})
-
-app.get('/chatjogos', function(req, res){
-    session=req.session;
-    if(session.userid){
-        Usuarios.findByPk(session.userid).then(function(info){
-        res.render('chatjogos', {
-            nome: info.nome
-        })
-    io.on('connection', function(socket){
-        socket.on('chat jogos', function(msg){
-          io.emit('chat jogos', msg);
-        });
-      });
-})
-    }})
-
+  //CHAT LIVROS
 app.get('/chatlivros', function(req, res){
-session=req.session;
-if(session.userid){
-    Usuarios.findByPk(session.userid).then(function(info){
-    res.render('chatlivros', {
-        nome: info.nome
-    })
-    io.on('connection', function(socket){
-        socket.on('chat livros', function(msg){
-          io.emit('chat livros', msg);
-        });
-      });
-})
-}})
-
-app.get('/chatestudos', function(req, res){
-    session=req.session;
+    session=req.session
     if(session.userid){
-        Usuarios.findByPk(session.userid).then(function(info){
-        res.render('chatestudos', {
-            nome: info.nome
+    Usuarios.findByPk(session.userid).then(function(chat){
+        res.render('chatlivros', {
+            nome: chat.nome
         })
-    io.on('connection', function(socket){
-        socket.on('chat estudos', function(msg){
-          io.emit('chat estudos', msg);
-        });
-        socket.on('disconnect', function(){
-            console.log("disconnected!");
-          });
-      });
-})
-}})
+    })
+}else
+    res.send('erro')
+});
+  // sempre que o socketio receber uma conexão vai devoltar realizar o broadcast dela
+  io.on('connection', function(socket){
+    socket.on('chat livros', function(msg){
+      io.emit('chat livros', msg);
+  })
+});
+
+ //CHAT JOGOS
+app.get('/chatjogos', function(req, res){
+    session=req.session
+    if(session.userid){
+    Usuarios.findByPk(session.userid).then(function(chat){
+        res.render('chatjogos', {
+            nome: chat.nome
+        })
+    })
+}else
+    res.send('erro')
+});
+  // sempre que o socketio receber uma conexão vai devoltar realizar o broadcast dela
+  io.on('connection', function(socket){
+    socket.on('chat jogos', function(msg){
+      io.emit('chat jogos', msg);
+  })
+});
+
+ //CHAT ESPORTES
+ app.get('/chatesportes', function(req, res){
+    session=req.session
+    if(session.userid){
+    Usuarios.findByPk(session.userid).then(function(chat){
+        res.render('chatesportes', {
+            nome: chat.nome
+        })
+    })
+}else
+    res.send('erro')
+});
+  // sempre que o socketio receber uma conexão vai devoltar realizar o broadcast dela
+  io.on('connection', function(socket){
+    socket.on('chat esportes', function(msg){
+      io.emit('chat esportes', msg);
+  })
+});
+
+ //CHAT FILMES
+ app.get('/chatfilmes', function(req, res){
+    session=req.session
+    if(session.userid){
+    Usuarios.findByPk(session.userid).then(function(chat){
+        res.render('chatfilmes', {
+            nome: chat.nome
+        })
+    })
+}else
+    res.send('erro')
+});
+  // sempre que o socketio receber uma conexão vai devoltar realizar o broadcast dela
+  io.on('connection', function(socket){
+    socket.on('chat filmes', function(msg){
+      io.emit('chat filmes', msg);
+  })
+});
+
+ //CHAT MUSICAS
+ app.get('/chatmusicas', function(req, res){
+    session=req.session
+    if(session.userid){
+    Usuarios.findByPk(session.userid).then(function(chat){
+        res.render('chatmusicas', {
+            nome: chat.nome
+        })
+    })
+}else
+    res.send('erro')
+});
+  // sempre que o socketio receber uma conexão vai devoltar realizar o broadcast dela
+  io.on('connection', function(socket){
+    socket.on('chat musicas', function(msg){
+      io.emit('chat musicas', msg);
+  })
+});
+
+ // CHAT EDUCACAO
+ app.get('/chateducacao', function(req, res){
+    session=req.session
+    if(session.userid){
+    Usuarios.findByPk(session.userid).then(function(chat){
+        res.render('chateducacao', {
+            nome: chat.nome
+        })
+    })
+}else
+    res.send('erro')
+});
+  // sempre que o socketio receber uma conexão vai devoltar realizar o broadcast dela
+  io.on('connection', function(socket){
+    socket.on('chat educacao', function(msg){
+      io.emit('chat educacao', msg);
+  })
+});
+
 
 
 //TELA INICIAL
@@ -494,19 +466,6 @@ app.get("/", function(req,res){
        style:"styles.css"
     });
 });
-
-/*Usuarios.count().then((count) => {
-    Usuarios.findByPk(1115).then((info) => {
-        Usuarios.findAll().then((info2) =>{
-            for(var i = 1; i < count; i++){
-                console.log("-----------" +alg.match(info,info2[i]));
-            }
-        })
-    })
-})*/
-
-
-
 
 
 // server 
