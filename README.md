@@ -2,42 +2,46 @@
 
 ## 🗒️ Tarefas
 
-- [ ]  cadastro do usuário(email, nome, curso, matrícula, foto, data de nascimento, bio)
-    - [ ]  back-end
-    - [ ]  front-end
-- [ ]  cadastro de redes sociais do usuário (whatsapp, instagram, discord, etc.)
-    - [ ]  back-end
-    - [ ]  front-end
-- [ ]  cadastro de interesses do usuário (jogos, musicas, filmes, livros, esportes, educação)
-    - [ ]  back-end
-    - [ ]  front-end
-- [ ]  Login
-    - [ ]  back-end
-    - [ ]  front-end
-- [ ]  Perfil do usuário(mostra o usuário)
-    - [ ]  back-end(get em users)
-    - [ ]  front-end
+- [x]  cadastro do usuário(email, nome, curso, matrícula, foto, data de nascimento, bio)
+    - [x]  back-end
+    - [x]  front-end
+- [x]  cadastro de redes sociais do usuário (whatsapp, instagram, discord, etc.)
+    - [x]  back-end
+    - [x]  front-end
+- [x]  cadastro de interesses do usuário (jogos, musicas, filmes, livros, esportes, educação)
+    - [x]  back-end
+    - [x]  front-end
+- [x]  Login
+    - [x]  back-end
+    - [x]  front-end
+- [x]  Perfil do usuário(mostra o usuário)
+    - [x]  back-end(get em users)
+    - [x]  front-end
 
 <aside>
 🚨 OBS: edição só pode ser habilitada caso o usuário a ser editado seja editado pelo usuário que fez a requisição
 
 </aside>
 
-- [ ]  edição do usuário(email, nome, curso, matrícula, foto, data de nascimento, bio)
-    - [ ]  back-end
-    - [ ]  front-end
-- [ ]  edição de redes sociais do usuário
-    - [ ]  back-end
-    - [ ]  front-end
-- [ ]  edição de interesses do usuário
-    - [ ]  back-end
-    - [ ]  front-end
-- [ ]  Lista de usuários(sorteado por compatibilidade com o usuário logado)
-    - [ ]  back-end
-    - [ ]  front-end
-- [ ]  Curtir/match
-    - [ ]  back-end
-    - [ ]  front-end
+- [x]  edição do usuário(email, nome, curso, matrícula, foto, data de nascimento, bio)
+    - [x]  back-end
+    - [x]  front-end
+- [x]  edição de redes sociais do usuário
+    - [x]  back-end
+    - [x]  front-end
+- [x]  edição de interesses do usuário
+    - [x]  back-end
+    - [x]  front-end
+- [x]  Lista de usuários(sorteado por compatibilidade com o usuário logado)
+    - [x]  back-end
+    - [x]  front-end
+- [x]  Salas de chat
+    - [x]  back-end
+    - [x]  front-end
+    
+    
+
+🗑 Ideias Ignoradas
 - [ ]  Lista de usuários que deu match
     - [ ]  back-end
     - [ ]  front-end
