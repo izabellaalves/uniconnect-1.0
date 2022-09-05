@@ -201,7 +201,5 @@ function match(usuario, banco){
 }
 
 module.exports = {
-    //interesses : interesses,
-    match : match,
-    //indexilize : indexilize
+    match : match
 }

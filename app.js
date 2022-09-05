@@ -15,6 +15,8 @@ const Usuarios = require("./models/Usuarios");
 const alg = require("./public/js/alg.js");
 const multer = require('multer');
 
+const { info } = require("console");
+const { Server } = require("http");
 const upload = multer({dest:'./src/temp'});
 const fs = require("fs");
 
@@ -459,6 +461,7 @@ app.get('/chatjogos', function(req, res){
 
 
 
+
 //TELA INICIAL
 app.get("/", function(req,res){
     res.render("index", {
@@ -466,6 +469,18 @@ app.get("/", function(req,res){
        style:"styles.css"
     });
 });
+
+/*Usuarios.count().then((count) => {
+    Usuarios.findByPk(1115).then((info) => {
+        Usuarios.findAll().then((info2) =>{
+            for(var i = 1; i < count; i++){
+                console.log("-----------" +alg.match(info,info2[i]));
+            }
+        })
+    })
+})*/
+
+
 
 
 // server 
