@@ -1,36 +1,43 @@
-
-        <form>
+ <form>
 
     <div class="login_body">
            
+    {{#if foto}}
+    <div><img class="form-image" src="../imagens/uploaded/{{matricula}}{{foto}}" alt="{{nome}}">
+    {{else}}
+    <div><img class="form-image" src="../imagens/pessoa.png" alt="">
+    {{/if}}
 
-    <div><img class="form-image" src="assets/img/user.png" alt="">
-
-    <h1>{{nome}}</h1>
-    <h2>{{curso}}</h2>
+        <div><h1>{{nome}}</h1></div>
+        <div class="curso"><h2>{{curso}}</h2></div>
 
    <div class="linha"></div>
     
-    <div><h2>Interesses</h2></div>
+    <div class="interesses"><h2>Interesses</h2></div>
     
-    <div><h3>Educação: {{educação}}</h3>
-        <h3>Música: {{musicas}}</h3>
-    <h3>Filmes: {{filmes}}</h3>
-    <h3>Livros: {{livros}}</h3>
-    <h3>Esporte: {{esportes}}</h3>
-    <h3>Jogos: {{jogos}}</h3>
+    <div>
+        {{#if educação}}<h3>Educação:</h3> <p class="dado">{{educação}}</p>{{/if}}
+        {{#if musicas}}<h3>Música:</h3> <p class="dado">{{musicas}}</p>{{/if}}
+        {{#if filmes}}<h3>Filmes:</h3> <p class="dado">{{filmes}}</p>{{/if}}
+        {{#if livros}}<h3>Livros:</h3> <p class="dado">{{livros}}</p>{{/if}}
+        {{#if esportes}}<h3>Esporte:</h3> <p class="dado">{{esportes}}</p>{{/if}}
+        {{#if jogos}}<h3>Jogos:</h3> <p class="dado">{{jogos}}</p>{{/if}}
 
-        <h2>Redes Socias</h2>
+       <div class="interesses"><h2>Redes Sociais</h2></div>
 
-        <h3>Whatsapp: {{whatsapp}}</h3>
-        <h3>Instagram: {{instagram}}</h3>
-        <h3>Twitter: {{twitter}}</h3>
-        <h3>Discord: {{discord}}</h3>
-        <br>
-        <br>
+         {{#if whatsapp}}<h3>Whatsapp:</h3> <p class="dado">{{whatsapp}}</p>{{/if}}
+        {{#if instagram}}<h3>Instagram:</h3> <p class="dado">{{instagram}}</p>{{/if}}
+        {{#if twitter}}<h3>Twitter:</h3> <p class="dado">{{twitter}}</p>{{/if}}
+        {{#if discord}}<h3>Discord:</h3> <p class="dado">{{discord}}</p>{{/if}}
+        <br><br><br><br><br><br>
+        
+        <button class="feed"><a href="/feed">Feed</a></button>
+
+
 </div>
      </div>
         </div>
     </div>
 </div>
+       
     </form>
