@@ -8,7 +8,11 @@
                         <span class="overlay"></span>
 
                         <div class="card-image">
-                            <img src="imagens/{{nome}}.jfif" alt="" class="card-image">
+                            {{#if foto}}
+                            <img src="imagens/uploaded/{{matricula}}{{foto}}" alt="{{nome}}" class="card-image">
+                            {{else}}
+                            <img src="imagens/pessoa.png" alt="{{nome}}" class="card-image">
+                            {{/if}}
                         </div>
                     </div>
 
@@ -16,7 +20,7 @@
                         <h2 class="name">{{nome}}</h2>
                         <p class="description">{{curso}}</p>
 
-                        <a href="/lalala/:{{matricula}}"><button class="button">Ver perfil</button></a>
+                        <a href="/usuario/{{matricula}}" class="perfil-button">Ver perfil</a>
                     </div>
                 </div>
                 {{/each}}

@@ -3,11 +3,15 @@
          <div class="login_box">
             <div class="form-image">
                 <span><img height="40px" src="imagens/rose.png" alt="logo"></span>
-<form action="/add-usuarios" method="POST">
+<form action="/add-usuarios" method="POST" enctype="multipart/form-data">
                     <div class="input_grup">
                     <h1>Faça seu cadastro</h1>
-                    <form action="/add-usuarios" method="POST">
-                        <div class="input-box">
+                    <form action="/add-usuarios" method="POST" enctype="multipart/form-data">
+                    <div class="input-box">
+                        <label class="names"></label>
+                        <input type="file" name="foto" accept="image/png image/jpeg image/jpg"/></div>
+                    <br>
+                    <div class="input-box">
                         <label class="names"></label>
                         <input type="text" name="nome" placeholder="Nome Completo"></div>
                     <br>
@@ -17,7 +21,7 @@
                     <br>
                     <div class="input-box">
                         <label class="names"></label>
-                        <input type="number" name="matricula" placeholder="Matricula"></div>
+                        <input type="number" name="matricula" placeholder="Matrícula"></div>
                     <br>
                     <div class="input-box">
                         <label class="names"></label>
