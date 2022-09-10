@@ -11,11 +11,11 @@ Uniconnect é uma rede social destinada aos estudantes da Universidade de Brasí
 
 ## 🤝 Autores
 
-Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por estudantes do 2° e do 3° semestre da Universidade de Brasília.
-- [@esther](https://www.github.com/octokatherine)
-- [@izabella](https://www.github.com/octokatherine)
-- [@lucas](https://www.github.com/octokatherine)
-- [@paulo](https://www.github.com/octokatherine)
+Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por estudantes do 2° e do 3° semestre do curso de Engenharia de Software e Engenharia Aeroespacial da Universidade de Brasília.
+- Esther Sena | [@esmsena](https://github.com/esmsena)
+- Izabella Alves | [@izabellaalves](https://github.com/izabellaalves)
+- Lucas Oliveira | [@LucasOliveiraDiasMarquesFerreira](https://github.com/LucasOliveiraDiasMarquesFerreira)
+- Paulo Renato | [@Lizdtre](https://github.com/Lizdtre)
 
 
 
