@@ -2,14 +2,14 @@
 <img src="https://github.com/izabellaalves/uniconnect-1.0/blob/master/public/imagens/rose.png" width="100" height="100">
 
 
-# Uniconnect
+# 🌹 Uniconnect
 
 Uniconnect é uma rede social destinada aos estudantes da Universidade de Brasília. Através de interesses em comum, os alunos podem se conhecer, se conectar e entrar em contato com outro aluno que possui interesses parecidos, além de poder conversar em salas de chat separadas por áreas.
 
 
 
 
-## Autores
+## 🤝 Autores
 
 Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por estudantes do 2° e do 3° semestre da Universidade de Brasília.
 - [@esther](https://www.github.com/octokatherine)
@@ -20,12 +20,12 @@ Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por 
 
 
 
-## Demonstração
+## 💻 Demonstração
 
 Insira um gif ou um link de alguma demonstração
 
 
-## Stack utilizada
+## 📚 Stack utilizada
 
 - Node JS
 - HTML
@@ -39,7 +39,7 @@ Insira um gif ou um link de alguma demonstração
 - Bcrypt
 
 
-## Instalação
+## 🧑‍💻 Instalação
 
 1. Certifique-se de que possui o Node JS e o MySQL instalados e configurados em seu computador.
 
