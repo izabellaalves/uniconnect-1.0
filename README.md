@@ -1,54 +1,71 @@
-# uniconnect
 
-## 🗒️ Tarefas
+<img src="https://github.com/izabellaalves/uniconnect-1.0/blob/master/public/imagens/rose.png" width="100" height="100">
 
-- [x]  cadastro do usuário(email, nome, curso, matrícula, foto, data de nascimento, bio)
-    - [x]  back-end
-    - [x]  front-end
-- [x]  cadastro de redes sociais do usuário (whatsapp, instagram, discord, etc.)
-    - [x]  back-end
-    - [x]  front-end
-- [x]  cadastro de interesses do usuário (jogos, musicas, filmes, livros, esportes, educação)
-    - [x]  back-end
-    - [x]  front-end
-- [x]  Login
-    - [x]  back-end
-    - [x]  front-end
-- [x]  Perfil do usuário(mostra o usuário)
-    - [x]  back-end(get em users)
-    - [x]  front-end
 
-<aside>
-🚨 OBS: edição só pode ser habilitada caso o usuário a ser editado seja editado pelo usuário que fez a requisição
+# Uniconnect
 
-</aside>
+Uniconnect é uma rede social destinada aos estudantes da Universidade de Brasília. Através de interesses em comum, os alunos podem se conhecer, se conectar e entrar em contato com outro aluno que possui interesses parecidos, além de poder conversar em salas de chat separadas por áreas.
 
-- [x]  edição do usuário(email, nome, curso, matrícula, foto, data de nascimento, bio)
-    - [x]  back-end
-    - [x]  front-end
-- [x]  edição de redes sociais do usuário
-    - [x]  back-end
-    - [x]  front-end
-- [x]  edição de interesses do usuário
-    - [x]  back-end
-    - [x]  front-end
-- [x]  Lista de usuários(sorteado por compatibilidade com o usuário logado)
-    - [x]  back-end
-    - [x]  front-end
-- [x]  Salas de chat
-    - [x]  back-end
-    - [x]  front-end
-    
-    
 
-🗑 Ideias Ignoradas
-- [ ]  Lista de usuários que deu match
-    - [ ]  back-end
-    - [ ]  front-end
-- [ ]  Ajustar perfil do usuário para mostrar redes sociais se tiver dado match
-    - [ ]  back-end(usar middleware para checar se o usuario que fez request deu match com usuário requisitado)
-    - [ ]  front-end(mostrar rede sociail se o json retornar a lista de redes sociais populadas e a condição `deu match` for verdadeira)
-- [ ]  Desfazer match
-    - [ ]  back-end(rota para desfazer a curtida do usuário atual no usuário no qual match será desfeito)
-    - [ ]  front-end(botão e service para rota de desfazer match)
 
+
+## Autores
+
+Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por estudantes do 2° e do 3° semestre da Universidade de Brasília.
+- [@esther](https://www.github.com/octokatherine)
+- [@izabella](https://www.github.com/octokatherine)
+- [@lucas](https://www.github.com/octokatherine)
+- [@paulo](https://www.github.com/octokatherine)
+
+
+
+
+## Demonstração
+
+Insira um gif ou um link de alguma demonstração
+
+
+## Stack utilizada
+
+- Node JS
+- HTML
+- CSS
+- MYSQL
+- Sequelize
+- Socket IO
+- Multer
+- Handlebars
+- Express
+- Bcrypt
+
+
+## Instalação
+
+1. Certifique-se de que possui o Node JS e o MySQL instalados e configurados em seu computador.
+
+2. Clone este repositório usando 
+```bash
+  git clone https://github.com/izabellaalves/uniconnect-1.0.git
+```
+
+3. Abra o prompt de comando na pasta em que se encontram os arquivos e instale as dependências usando
+
+```bash
+  npm install bcrypt body-parser cookie-parser dotenv express express-flash express-session handlebars jsonwebtoken multer mysql mysql2 sequelize socket.io uuid
+```
+4. Dirija-se até models/Usuarios.js e remova as aspas na linha 60 para criar a tabela no banco de dados
+Isso 
+```bash
+  //Usuarios.sync({force: true})
+```
+Deve ficar assim
+```bash
+  Usuarios.sync({force: true})
+```
+Depois execute usando node app.js, e adicione novamente as aspas
+
+5. Execute digitando 
+```bash
+  node app.js
+```
+no prompt de comando. A aplicação estará disponível na porta 8081.
