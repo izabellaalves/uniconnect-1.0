@@ -55,7 +55,7 @@ Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por 
 3. Abra o prompt de comando na pasta em que se encontram os arquivos e instale as dependências usando
 
 ```bash
-  npm install bcrypt body-parser cookie-parser dotenv express express-flash express-session handlebars jsonwebtoken multer mysql mysql2 sequelize socket.io uuid
+  npm install 
 ```
 4. Dirija-se até models/Usuarios.js e remova as aspas na linha 60 para criar a tabela no banco de dados
 Isso 
