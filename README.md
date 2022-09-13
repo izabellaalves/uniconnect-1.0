@@ -52,7 +52,15 @@ Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por 
   git clone https://github.com/izabellaalves/uniconnect-1.0.git
 ```
 
-3. Abra o prompt de comando na pasta em que se encontram os arquivos e instale as dependências usando
+3. Abra o prompt de comando na pasta em que se encontram os arquivos usando
+
+```bash
+  cd /
+  
+  cd caminho/da/pasta
+```
+
+e instale as dependências usando
 
 ```bash
   npm install 
