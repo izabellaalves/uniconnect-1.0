@@ -57,7 +57,7 @@ Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por 
 ```bash
   npm install 
 ```
-4. Dirija-se até models/Usuarios.js e remova as aspas na linha 60 para criar a tabela no banco de dados
+4. Dirija-se até models/Usuarios.js e remova as barras na linha 60 para criar a tabela no banco de dados
 Isso 
 ```bash
   //Usuarios.sync({force: true})
@@ -66,7 +66,7 @@ Deve ficar assim
 ```bash
   Usuarios.sync({force: true})
 ```
-Depois execute usando node app.js, e adicione novamente as aspas
+Depois execute usando node app.js, e adicione novamente as barras
 
 5. Execute digitando 
 ```bash
