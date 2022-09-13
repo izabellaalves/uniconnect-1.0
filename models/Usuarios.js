@@ -36,7 +36,7 @@ const Usuarios = db.sequelize.define('usuarios', {
     esportes: {
         type: db.Sequelize.STRING
     },
-    educação: {
+    educacao: {
         type: db.Sequelize.STRING
     },
     whatsapp: {
