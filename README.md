@@ -4,7 +4,7 @@
 
 # 🌹 Uniconnect
 
-Uniconnect é uma rede social destinada aos estudantes da Universidade de Brasília. Através de interesses em comum, os alunos podem se conhecer, se conectar e entrar em contato com outro aluno que possui interesses parecidos, além de poder conversar em salas de chat separadas por áreas.
+Uniconnect é uma rede social destinada aos estudantes da Universidade de Brasília. Através de interesses em comum, os alunos podem se conhecer, ter acesso às redes sociais e entrar em contato com outro aluno que possui interesses parecidos, além de poder conversar em salas de chat separadas por áreas.
 
 
 
