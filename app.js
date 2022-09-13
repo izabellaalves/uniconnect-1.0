@@ -110,7 +110,7 @@ var session;
             filmes: req.body.filmes,
             livros: req.body.livros,
             esportes: req.body.esportes,
-            educação: req.body.educação
+            educacao: req.body.educacao
         };
         create_user = await Usuarios.create(users);
         res.status(201).redirect("login");//.json(create_user);
@@ -128,6 +128,7 @@ var session;
         session=req.session;
         if(session.userid){
             Usuarios.findByPk(session.userid).then(function(info){
+                console.log(info.educacao);
                 res.render("edit",{
                     title: "Editar perfil",
                     style: "cadastro.css",
@@ -143,7 +144,7 @@ var session;
                     filmes: info.filmes,
                     livros: info.livros,
                     esportes: info.esportes,
-                    educacao: info.educação
+                    educacao: info.educacao
                 });
             });
         }else
@@ -191,7 +192,7 @@ var session;
                 filmes: req.body.filmes,
                 livros: req.body.livros,
                 esportes: req.body.esportes,
-                educação: req.body.educação
+                educacao: req.body.educacao
             };
             if(extension){
                 users.foto = extension;
@@ -322,7 +323,7 @@ app.get("/usuario/:matricula", function(req, res){
             musicas : interesses.musicas,
             filmes : interesses.filmes,
             esportes : interesses.esportes,
-            educação : interesses.educacao,
+            educacao : interesses.educacao,
             jogos : interesses.jogos,
             livros: interesses.livros,
             whatsapp: interesses.whatsapp,
