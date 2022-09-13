@@ -22,7 +22,11 @@ Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por 
 
 ## 💻 Demonstração
 
-Insira um gif ou um link de alguma demonstração
+<img src="https://github.com/izabellaalves/uniconnect-1.0/blob/master/public/imagens/Captura%20de%20Tela%20(1).png">
+<img src="https://github.com/izabellaalves/uniconnect-1.0/blob/master/public/imagens/Captura%20de%20Tela%20(2).png">
+<img src="https://github.com/izabellaalves/uniconnect-1.0/blob/master/public/imagens/Captura%20de%20Tela%20(3).png">
+<img src="https://github.com/izabellaalves/uniconnect-1.0/blob/master/public/imagens/Captura%20de%20Tela%20(4).png">
+
 
 
 ## 📚 Stack utilizada
