@@ -70,6 +70,6 @@ Depois execute usando node app.js, e adicione novamente as aspas
 ```
 no prompt de comando. A aplicação estará disponível na porta 8081.
 
-## 💬 Feedback
+## 💌 
 
-Obrigado por chegar até aqui. Se você tiver alguma dúvida ou feedback, por favor nos deixe saber por meio de fake@fake.com
+Obrigado por chegar até aqui. 
