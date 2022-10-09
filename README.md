@@ -15,7 +15,7 @@ Este projeto foi desenvolvido para a disciplina Desenvolvimento de Software por 
 - Esther Sena | [@esmsena](https://github.com/esmsena)
 - Izabella Alves | [@izabellaalves](https://github.com/izabellaalves)
 - Lucas Oliveira | [@LucasOliveiraDiasMarquesFerreira](https://github.com/LucasOliveiraDiasMarquesFerreira)
-- Paulo Renato | [@Lizdtre](https://github.com/Lizdtre)
+- | [@Lizdtre](https://github.com/Lizdtre)
 
 
 
